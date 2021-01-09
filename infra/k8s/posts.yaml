@@ -1,0 +1,8 @@
+apiVersion: v1    # Preset list of different objects that we want our K8s to look at
+kind: Pod         # type of object that we want to create from that preset pool of objects
+metadata:         # config options for the object we are about to create
+  name: posts
+spec:             # exact attributes that we want to apply to the object that we are about to create.
+  containers:     # An array entity .
+    - name: posts
+      image: suryankdixit/posts:0.0.1
