@@ -1,13 +1,28 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const express = require("express");
 const axios = require('axios');
-
+const cors = require('cors');
 const app = express();
-app.use(bodyParser.json());
+
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 const posts = {};
+/*
+ {
+     postId:{
+         postId:postId,
+         title:title,
+         comments:[{
+             id:commentId,
+             content:content,
+             postId:postId,
+             status:status
+         }
+         ]
+     }
+ }
+*/
 
 function handleEvent(type, data) {
     if (type === 'PostCreated') {
@@ -34,6 +49,7 @@ function handleEvent(type, data) {
         comment.status = status;
         comment.content = content;
     }
+    console.log(posts);
 }
 
 app.get('/posts', (req, res) => {
@@ -48,12 +64,26 @@ app.post('/events', (req, res) => {
     res.send({});
 });
 
-app.listen(4002, async() => {
+app.listen(4002, async () => {
     console.log('Listening on 4002');
-
-    // const res = await axios.get("http://localhost:4005/events");
-    // for (let event of res.data) {
-    //     console.log('Procesing Event:', event.type);
-    //     handleEvent(event.type, event.data);
-    // }
+    const res = await axios.get("http://localhost:4005/events");
+    for (let event of res.data) {
+        console.log('Procesing Event:', event.type);
+        handleEvent(event.type, event.data);
+    }
 });
+
+// app.listen(4002, async () => {
+//     console.log("Listening on 4002");
+//     try {
+//         const res = await axios.get("http://localhost:4005/events");
+
+//         for (let event of res.data) {
+//             console.log("Processing event:", event.type);
+
+//             handleEvent(event.type, event.data);
+//         }
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// });
