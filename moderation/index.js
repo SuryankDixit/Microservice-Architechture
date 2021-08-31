@@ -1,12 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const { default: axios } = require('axios');
+const axios = require('axios');
 
 const app = express();
-// app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.post("/events", async(req, res) => {
+app.post("/events", async (req, res) => {
     const { type, data } = req.body;
     if (type === 'CommentCreated') {
         const status = data.content.includes("fuck") ? "rejected" : "approved";
@@ -26,6 +25,6 @@ app.post("/events", async(req, res) => {
     res.send({});
 });
 
-app.listen(4003, function() {
+app.listen(4003, function () {
     console.log("Server started on port 4003");
 });
