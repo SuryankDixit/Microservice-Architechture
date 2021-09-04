@@ -22,3 +22,9 @@ Microservices implementation from scratch
 Moderation Service being monitored by human.
 
 
+- Namespacing: Isolating resources per process or group of processes.
+- Control Groups (cgroups) : limit amount of resources used per processes
+
+- container is a running process, along with a subset of physical resources on your computer are allocated to that process.
+- an image is really kind of a snapshot of the file system, along with a very specific Start-Up
+
