@@ -1,8 +1,11 @@
-apiVersion: v1    # Preset list of different objects that we want our K8s to look at
+
+
+apiVersion: v1    # K8s is extensible. We can add our own custom objects. Preset list of different objects that we want our K8s to look at
 kind: Pod         # type of object that we want to create from that preset pool of objects
 metadata:         # config options for the object we are about to create
-  name: posts
+  name: posts     # when the pod is created , give it the name of posts.
 spec:             # exact attributes that we want to apply to the object that we are about to create.
   containers:     # An array entity .
-    - name: posts
-      image: suryankdixit/posts:0.0.1
+    - name: posts #make a container with the name posts
+      image: suryankdixit/posts:0.0.1 # The exact image we want to use.
+      imagePullPolicy: Never
